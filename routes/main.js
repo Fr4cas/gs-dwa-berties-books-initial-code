@@ -32,5 +32,16 @@ router.post('/registered', function (req,res) {
     res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);                                                                              
 }); 
 
+router.get('/list', function (req, res) {
+    let sqlquery = "SELECT * FROM book"; 
+    // Executes sqlquery
+    db.query(sqlquery,(err, result) => {
+        if (err){
+            res.redirect('./');
+        }
+        res.send(result)
+    });
+});
+
 // Export the router object so index.js can access it
 module.exports = router;
