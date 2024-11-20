@@ -33,7 +33,7 @@ router.post('/registered', function (req,res) {
 }); 
 
 router.get('/list', function (req, res) {
-    let sqlquery = "SELECT * FROM book"; 
+    let sqlquery = "SELECT * FROM books"; 
     // Executes sqlquery
     db.query(sqlquery,(err, result) => {
         if (err){
