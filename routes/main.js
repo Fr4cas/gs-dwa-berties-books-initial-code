@@ -32,6 +32,7 @@ router.post('/registered', function (req,res) {
     res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);                                                                              
 }); 
 
+// Code for list page
 router.get('/list', function (req, res) {
     let sqlquery = "SELECT * FROM books"; 
     // Executes sqlquery
@@ -39,7 +40,9 @@ router.get('/list', function (req, res) {
         if (err){
             res.redirect('./');
         }
-        res.send(result)
+        let newData = Object.assign({}, shopData, {availableBooks:result});
+            console.log(newData)
+            res.render("list.ejs", newData)
     });
 });
 
