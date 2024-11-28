@@ -14,6 +14,7 @@ router.get('/about',function(req,res){
     res.render('about.ejs', shopData);
 });
 
+// Code for search page
 router.get('/search',function(req,res){
     res.render("search.ejs", shopData);
 });
@@ -23,6 +24,7 @@ router.get('/search-result', function (req, res) {
     res.send("You searched for: " + req.query.keyword);
 });
 
+// Code for register page
 router.get('/register', function (req,res) {
     res.render('register.ejs', shopData);                                                                     
 });        
@@ -43,6 +45,27 @@ router.get('/list', function (req, res) {
         let newData = Object.assign({}, shopData, {availableBooks:result});
             console.log(newData)
             res.render("list.ejs", newData)
+    });
+});
+
+// Code for adding books
+router.get('/addbook',function(req,res){
+    res.render('addbook.ejs', shopData);
+}); 
+
+router.post('/bookadded', function (req,res) {
+    // saving data in database
+    let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
+
+    // execute sql query
+    let newrecord = [req.body.name, req.body.price];
+        db.query(sqlquery, newrecord, (err, result) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        else {
+            res.send(' This book is added to database, name: '+ req.body.name + ' price '+ req.body.price);
+        }
     });
 });
 
