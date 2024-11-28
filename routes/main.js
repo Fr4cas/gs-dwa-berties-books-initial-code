@@ -69,5 +69,19 @@ router.post('/bookadded', function (req,res) {
     });
 });
 
+// Code for bargain books page
+router.get('/bargainbooks', function (req, res) {
+    let sqlquery = "SELECT name, price FROM books WHERE price<20"; 
+    // Executes sqlquery
+    db.query(sqlquery,(err, result) => {
+        if (err){
+            res.redirect('./');
+        }
+        let newData = Object.assign({}, shopData, {availableBooks:result});
+            console.log(newData)
+            res.render("bargainbooks.ejs", newData)
+    });
+});
+
 // Export the router object so index.js can access it
 module.exports = router;
